@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- listable resource view -->
+    <item name="pagedResourcesTabs" type="id"/>
+    <item name="pagedResourcesTeamLogo" type="id"/>
+    <item name="pagedResourcesTeamGradient" type="id"/>
+    <item name="pagedResourcesTitle" type="id"/>
+    <item name="pagedResourcesLogo" type="id"/>
+
+
+</resources>

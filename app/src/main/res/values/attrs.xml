@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- aspect ratio view -->
+    <declare-styleable name="AspectRatioRelativeLayout">
+        <attr name="heightToWidthRatio" format="float"/>
+    </declare-styleable>
+</resources>

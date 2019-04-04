@@ -71,6 +71,14 @@ class MyViewWithPager @JvmOverloads constructor(context: Context, attrs: Attribu
         adapter.notifyDataSetChanged()
     }
 
+    fun getCurrentResourcePosition() = pager.currentItem
+
+    fun setCurrentResourcePosition(page: Int) {
+        if (adapter.count > 0) { // if adapter contains elements
+            pager.setCurrentItem(page, false)
+        }
+    }
+
     private inline fun ViewManager.tabLayout(init: TabLayout.() -> Unit = {}) =
         ankoView({ TabLayout(it) }, R.style.GalleryPagerIndicatorStyle, init = init)
 }

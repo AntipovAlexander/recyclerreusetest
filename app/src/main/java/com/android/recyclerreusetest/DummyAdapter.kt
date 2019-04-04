@@ -10,6 +10,11 @@ class DummyAdapter : RecyclerView.Adapter<DummyAdapter.DummyHolder>() {
 
     private val data = mutableListOf<Int>()
 
+    /**
+     * Hash Map for storing position of the holder and its ViewPager current page*
+     */
+    private var viewPageStates: HashMap<Int, Int> = HashMap()
+
     init {
         for (i in 0 until 100) {
             data.add(i)
@@ -25,12 +30,32 @@ class DummyAdapter : RecyclerView.Adapter<DummyAdapter.DummyHolder>() {
 
     override fun getItemCount() = data.size
 
+    /**
+     * Bind ViewHolder, and if HashMap contains ViewPager state for this position
+     * we restoring it
+     */
     override fun onBindViewHolder(holder: DummyHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(position)
+        viewPageStates[position]?.let {
+            holder.setRetainedPosition(it)
+        }
+    }
+
+    /**
+     * When view is recycling, we save current ViewHolder's ViewPager position to HashMap
+     */
+    override fun onViewRecycled(holder: DummyHolder) {
+        if (holder.positionInList != RecyclerView.NO_POSITION) { // check just in case
+            viewPageStates[holder.positionInList] = holder.itemView.vp.getCurrentResourcePosition()
+        }
+        super.onViewRecycled(holder)
     }
 
     class DummyHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(data: Int) {
+        var positionInList = RecyclerView.NO_POSITION // default state
+
+        fun bind(position: Int) {
+            positionInList = position
             with(itemView) {
                 val list = mutableListOf<Int>()
                 for (i in 0 until 5) {
@@ -38,6 +63,10 @@ class DummyAdapter : RecyclerView.Adapter<DummyAdapter.DummyHolder>() {
                 }
                 vp.fillView(list)
             }
+        }
+
+        fun setRetainedPosition(it: Int) {
+            itemView.vp.setCurrentResourcePosition(it)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.android.recyclerreusetest
+package com.android.coroutinesplayground
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
